@@ -10,7 +10,8 @@ public class PlayerDestroyOnHit : MonoBehaviour
     {
         if (!enabled) return;
 
-        if (collision.gameObject.CompareTag("EnemyBullet")) {
+        if (collision.gameObject.CompareTag("EnemyBullet"))
+        {
             Debug.Log("Hit by Enemy bullet", this);
 
             GetComponentInParent<PlayerManager>().enabled = false;
@@ -20,10 +21,12 @@ public class PlayerDestroyOnHit : MonoBehaviour
 
             bool first = true;
 
-            foreach (Transform t in transform) {
+            foreach (Transform t in transform)
+            {
                 Debug.Log(t.name);
 
-                if (first) {
+                if (first)
+                {
                     first = false;
                     continue;
                 }
@@ -37,5 +40,33 @@ public class PlayerDestroyOnHit : MonoBehaviour
             Manager.GameOver();
             enabled = false;
         }
+        else if(collision.gameObject.CompareTag("PlayerBullet"))
+        {
+            GetComponentInParent<MisteryShipManager>().enabled = false;
+            GetComponentInParent<MeshRenderer>().enabled = false;
+
+            Destroy(gameObject, 2);
+
+            bool first = true;
+
+            foreach (Transform t in transform)
+            {
+                Debug.Log(t.name);
+
+                if (first)
+                {
+                    first = false;
+                    continue;
+                }
+
+                t.gameObject.SetActive(true);
+
+                Rigidbody rb = t.gameObject.AddComponent<Rigidbody>();
+                rb.AddExplosionForce(20, t.transform.position, 100, 0, ForceMode.Impulse);
+            }
+            enabled = false;
+            
+        }
+
     }
 }

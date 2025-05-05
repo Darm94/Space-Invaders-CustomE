@@ -39,6 +39,8 @@ public class MisteryShipManager : MonoBehaviour
     MeshRenderer[] renderers;
 
     AudioSource aso;
+    
+    private bool hitted = false;
 
     private void Start()
     {
@@ -102,6 +104,7 @@ public class MisteryShipManager : MonoBehaviour
 
     void Animate()
     {
+        hitted = false;
         foreach (Renderer r in renderers) {
             r.enabled = true;
         }
@@ -123,8 +126,10 @@ public class MisteryShipManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("PlayerBullet")) {
-            HideShip();
+        if (collision.gameObject.CompareTag("PlayerBullet") && !hitted) {
+            hitted = true;
+            //HideShip();
+            
 
             int points = hitPoints[Random.Range(0, hitPoints.Length)];
             manager.DidHitEnemy(points);
@@ -134,7 +139,7 @@ public class MisteryShipManager : MonoBehaviour
     private void HideShip()
     {
         animate = false;
-
+        
         foreach (Renderer r in renderers) {
             r.enabled = false;
         }

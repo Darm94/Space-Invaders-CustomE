@@ -35,8 +35,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     AudioSource dieAS;
 
-    float deltaX = 1;
-    float deltaY = 1;
+    float deltaX = 0.9f;
+    float deltaY = 0.9f;
 
     private void Start()
     {
@@ -82,7 +82,7 @@ public class PlayerManager : MonoBehaviour
 
         //The translation should be done after merging the geometry
         transform.position = startPotision;
-        transform.localScale = new Vector3(2, 2, 2);
+        transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
     }
 
     // Update is called once per frame

@@ -39,11 +39,11 @@ public class EnemiesMover : MonoBehaviour
             if (step >= 0.1f) {
                 InvokeRepeating("Move", step, step);
             }
-            else {
+            /*else {
                 CancelInvoke();
                 GetComponent<GameManager>().GameOver();
                 enabled = false;
-            }
+            } */
         }
 
         if (transform.position.y < gameOverLowerY) {
