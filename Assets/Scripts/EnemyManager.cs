@@ -17,12 +17,14 @@ public class EnemyManager : MonoBehaviour {
     GameManager gameManager;
 
     int hitPoints;
+    private int type;
 
-    public void Configure(Sprite frame1Shape, Sprite frame2Shape, Material newMat, int points, GameManager manager) {
+    public void Configure(Sprite frame1Shape, Sprite frame2Shape, Material newMat, int points, GameManager manager,int eType) {
         hitPoints = points;
         gameManager = manager;
         fireDelay = Random.Range(5, 10);
-
+        type = eType;
+        
         goShape1 = new GameObject();
         goShape1.AddComponent<DestroyOnHit>();
         goShape1.name = "Frame1";
@@ -126,6 +128,6 @@ public class EnemyManager : MonoBehaviour {
     }
 
     public void WasHit() {
-        gameManager.DidHitEnemy(hitPoints);
+        gameManager.DidHitEnemy(hitPoints,type);
     }
 }

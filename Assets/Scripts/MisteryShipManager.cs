@@ -139,7 +139,7 @@ public class MisteryShipManager : MonoBehaviour
             
 
             int points = hitPoints[Random.Range(0, hitPoints.Length)];
-            manager.DidHitEnemy(points);
+            manager.DidHitEnemy(points,0);
         }
     }
 

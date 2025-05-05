@@ -8,7 +8,7 @@ public class EnemiesMover : MonoBehaviour
     int direction = 1;
 
     [SerializeField]
-    float gameOverLowerY = -22;
+    float gameOverLowerY = -50;
 
     // Start is called before the first frame update
     void Start() {
@@ -18,7 +18,7 @@ public class EnemiesMover : MonoBehaviour
     void Move() {
         transform.position += Vector3.right * deltaX * direction;
 
-        if (transform.position.x > 20 && direction == 1) {
+        if (transform.position.x > 20 && direction == 1 || transform.position.x < -20 && direction == -1) {
             CancelInvoke();
 
             direction *= -1;
@@ -54,12 +54,28 @@ public class EnemiesMover : MonoBehaviour
                 */
             } 
         }
+        
+        foreach (var childTransform in gameObject.GetComponentsInChildren<Transform>())
+        {
+            if (childTransform.position.y < gameOverLowerY)
+            {
+                //GameOver
 
-        if (transform.position.y < gameOverLowerY) {
+                CancelInvoke();
+
+                Debug.Log("Game Over" + childTransform.position, childTransform.gameObject);
+                GetComponent<GameManager>().GameOver();
+
+                enabled = false;
+            }
+        }
+
+        /*if (transform.position.y < gameOverLowerY) {
             //GameOver
             CancelInvoke();
             GetComponent<GameManager>().GameOver();
             enabled = false;
-        }
+            
+        }*/
     }
 }

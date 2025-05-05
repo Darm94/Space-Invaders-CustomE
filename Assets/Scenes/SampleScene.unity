@@ -1694,7 +1694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae61e979fbd18684e843dd962e61fcec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverLowerY: -18
+  gameOverLowerY: -80
 --- !u!114 &991524367
 MonoBehaviour:
   m_ObjectHideFlags: 0

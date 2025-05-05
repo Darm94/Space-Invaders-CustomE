@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     int enemy1Points = 30;
 
+    private int _enemy1Counter = 0;
+    
     //Enemy 2nd and 3rd row middle
     [SerializeField]
     Sprite enemy2;
@@ -40,6 +42,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     int enemy2Points = 20;
 
+    private int _enemy2Counter = 0;
+    
     //Enemy 4th and 5th row bottom
     [SerializeField]
     Sprite enemy3;
@@ -56,6 +60,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     int enemy3Points = 10;
 
+    private int _enemy3Counter = 0;
+    
     [SerializeField]
     GameObject enemyGO;
 
@@ -107,71 +113,20 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject gameOverCanvas;
     
+    //NewRestartFuction
+    private int activeEnemies;
+    private Vector3 startPosition;
+    private float _startY;
+    
     // Start is called before the first frame update
     void Start()
     {
+        startPosition = transform.position;
+        _startY=currentY;
         scoreBestText.text = $"hi-score:\n{PlayerPrefs.GetInt("score")}";
         scoreText.text = $"Score:\n{score}";
 
-        Material e1Material = new Material(enemyMaterial);
-        e1Material.color = new Color(0, 1, 0);
-
-        for (int i = 0; i < enemy1Rows; i++) {
-            for (int j = 0; j < enemy1Cols; j++) {
-                Debug.Log($"Loop GM: " + i + " : " + j);
-
-                GameObject go = Instantiate(enemyGO);
-                go.SetActive(true);
-
-                EnemyManager em = go.GetComponent<EnemyManager>();
-                em.Configure(enemy1, enemy1b, e1Material, enemy1Points, this);
-
-                go.transform.position = new Vector3(j * deltaX, currentY, 0);
-                go.transform.parent = transform;
-            }
-
-            currentY -= deltaY;
-        }
-
-        Debug.Log($"DY: {deltaY}");
-
-        Material e2Material = new Material(enemyMaterial);
-        e2Material.color = new Color(1, 1, 0.5F);
-
-        for (int i = 0; i < enemy2Rows; i++) {
-            for (int j = 0; j < enemy2Cols; j++) {
-                GameObject go = Instantiate(enemyGO);
-                go.SetActive(true);
-
-                EnemyManager em = go.GetComponent<EnemyManager>();
-                em.Configure(enemy2, enemy2b, e2Material, enemy2Points, this);
-
-                go.transform.position = new Vector3(j * deltaX, currentY, 0);
-                go.transform.parent = transform;
-            }
-
-            currentY -= deltaY;
-        }
-        
-        Debug.Log($"DY: {currentY}");
-        
-        Material e3Material = new Material(enemyMaterial);
-        e2Material.color = new Color(1, 0.5F, 0);
-
-        for (int i = 0; i < enemy3Rows; i++) {
-            for (int j = 0; j < enemy3Cols; j++) {
-                GameObject go = Instantiate(enemyGO);
-                go.SetActive(true);
-
-                EnemyManager em = go.GetComponent<EnemyManager>();
-                em.Configure(enemy3, enemy3b, e3Material, enemy3Points, this);
-
-                go.transform.position = new Vector3(j * deltaX, currentY, 0);
-                go.transform.parent = transform;
-            }
-
-            currentY -= deltaY;
-        }
+        SpawnEnemies();
         
         //Barriers
         for (int i = 0; i < barriers; i++) {
@@ -190,11 +145,95 @@ public class GameManager : MonoBehaviour
         }
         
     }
+
+    private void SpawnEnemies()
+    {
+        
+        activeEnemies = 0;
+        _enemy1Counter = 0;
+        _enemy2Counter = 0;
+        _enemy3Counter = 0;
+        
+        
+        SpawnEnemyType(new Color(0, 1, 0), enemyMaterial, ref _enemy1Counter, enemy1Rows, enemy1Cols, enemy1, enemy1b, enemy1Points,
+            this,1);
+        
+        Debug.Log($"DY: {deltaY}");
+        
+        SpawnEnemyType(new Color(1, 1, 0.5F), enemyMaterial, ref _enemy2Counter, enemy2Rows, enemy2Cols, enemy2, enemy2b, enemy2Points,
+            this,2);
+        
+        Debug.Log($"DY: {currentY}");
+
+        SpawnEnemyType(new Color(1, 0.5F, 0), enemyMaterial, ref _enemy3Counter, enemy3Rows, enemy3Cols, enemy3, enemy3b, enemy3Points,
+            this,3);
+    }
+
+    private void SpawnEnemyType(Color color, Material enemyMaterial,ref int counter, int enemyRows, int enemyCols, Sprite enemySprite1,
+        Sprite enemySprite2, int enemyPoints, GameManager manager,int type)
+    {
+        Material eMaterial = new Material(enemyMaterial);
+        eMaterial.color = color;
+
+        for (int i = 0; i < enemyRows; i++) {
+            for (int j = 0; j < enemyCols; j++) {
+                GameObject go = Instantiate(enemyGO);
+                go.SetActive(true);
+                activeEnemies++;
+                counter++;
+                
+                EnemyManager em = go.GetComponent<EnemyManager>();
+                em.Configure(enemySprite1, enemySprite2, eMaterial, enemyPoints, manager,type);
+
+                go.transform.position = new Vector3(j * deltaX, currentY, 0);
+                go.transform.parent = transform;
+            }
+            currentY -= deltaY;
+        }
+    }
     
-    public void DidHitEnemy(int newPoints) {
+    public void DidHitEnemy(int newPoints,int type) {
         score += newPoints;
         Debug.Log("SCORE: " +score);
         scoreText.text = $"Score:\n{score}";
+        if (type <= 0)
+        {
+            return;
+            /*
+            switch (type)
+            {
+                case 1:
+                    _enemy1Counter--;
+                    if (_enemy1Counter <= 0)
+                    {
+                        
+                    }
+                    break;
+                case 2:
+                    _enemy2Counter--;
+                    if (_enemy2Counter <= 0)
+                    {
+                        
+                    }
+                    break;
+                case 3:
+                    _enemy3Counter--;
+                    if (_enemy3Counter <= 0)
+                    {
+                        
+                    }
+                    break;
+            }*/
+        }
+        
+        activeEnemies--;
+        if (activeEnemies <= 0)
+        {
+            transform.position=startPosition;
+            currentY=_startY;
+            SpawnEnemies();
+        }
+        
     }
 
     public void GameOver() {
