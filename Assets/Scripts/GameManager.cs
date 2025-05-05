@@ -151,6 +151,8 @@ public class GameManager : MonoBehaviour
         _enemy1Counter = 0;
         _enemy2Counter = 0;
         _enemy3Counter = 0;
+        //TODO to change in a single call or a Action Callback
+        gameObject.GetComponent <EnemiesMover>().Unmute();
         
         SpawnEnemyType(new Color(0, 1, 0), enemyMaterial, ref _enemy1Counter, enemy1Rows, enemy1Cols, enemy1, enemy1b, enemy1Points,
             this,1);
@@ -180,6 +182,8 @@ public class GameManager : MonoBehaviour
                 counter++;
                 
                 EnemyManager em = go.GetComponent<EnemyManager>();
+                
+                //TODO to change into a Action Callback
                 em.Configure(enemySprite1, enemySprite2, eMaterial, enemyPoints, manager,type);
 
                 go.transform.position = new Vector3(j * deltaX, currentY, 0);
@@ -203,7 +207,12 @@ public class GameManager : MonoBehaviour
         {
             transform.position=startPosition;
             currentY=_startY;
-            SpawnEnemies();
+            //TODO to change in a single call or a Action Callback
+            gameObject.GetComponent <EnemiesMover>().StepReset();
+            //TODO to change in a single call or a Action Callback
+            gameObject.GetComponent <EnemiesMover>().Mute();
+            Invoke("SpawnEnemies", 3);
+            //SpawnEnemies();
         }
     }
 
