@@ -122,9 +122,13 @@ public class GameManager : MonoBehaviour
     private Vector3 startPosition;
     private float _startY;
     
+    //MoverRef
+    EnemiesMover EnemiesMover;
+    
     // Start is called before the first frame update
     void Start()
     {
+        EnemiesMover = gameObject.GetComponent<EnemiesMover>();
         startPosition = transform.position;
         _startY=currentY;
         scoreBestText.text = $"hi-score:\n{PlayerPrefs.GetInt("score")}";
@@ -156,25 +160,22 @@ public class GameManager : MonoBehaviour
         _enemy1Counter = 0;
         _enemy2Counter = 0;
         _enemy3Counter = 0;
-        //TODO to change in a single call or a Action Callback
-        gameObject.GetComponent <EnemiesMover>().Unmute();
+        //Eventually End the Mute during resetting
+        EnemiesMover.Unmute();
         
-        SpawnEnemyType(new Color(0, 1, 0), enemyMaterial, ref _enemy1Counter, enemy1Rows, enemy1Cols, enemy1, enemy1b, enemy1Points,
-            this,1);
+        SpawnEnemyType(new Color(0, 1, 0), enemyMaterial, ref _enemy1Counter, enemy1Rows, enemy1Cols, enemy1, enemy1b, enemy1Points,1);
         
         Debug.Log($"DY: {deltaY}");
         
-        SpawnEnemyType(new Color(1, 1, 0.5F), enemyMaterial, ref _enemy2Counter, enemy2Rows, enemy2Cols, enemy2, enemy2b, enemy2Points,
-            this,2);
+        SpawnEnemyType(new Color(1, 1, 0.5F), enemyMaterial, ref _enemy2Counter, enemy2Rows, enemy2Cols, enemy2, enemy2b, enemy2Points,2);
         
         Debug.Log($"DY: {currentY}");
 
-        SpawnEnemyType(new Color(1, 0.5F, 0), enemyMaterial, ref _enemy3Counter, enemy3Rows, enemy3Cols, enemy3, enemy3b, enemy3Points,
-            this,3);
+        SpawnEnemyType(new Color(1, 0.5F, 0), enemyMaterial, ref _enemy3Counter, enemy3Rows, enemy3Cols, enemy3, enemy3b, enemy3Points,3);
     }
 
     private void SpawnEnemyType(Color color, Material enemyMaterial,ref int counter, int enemyRows, int enemyCols, Sprite enemySprite1,
-        Sprite enemySprite2, int enemyPoints, GameManager manager,int type)
+        Sprite enemySprite2, int enemyPoints,int type)
     {
         Material eMaterial = new Material(enemyMaterial);
         eMaterial.color = color;
@@ -188,8 +189,8 @@ public class GameManager : MonoBehaviour
                 
                 EnemyManager em = go.GetComponent<EnemyManager>();
                 
-                //TODO to change into a Action Callback
-                em.Configure(enemySprite1, enemySprite2, eMaterial, enemyPoints, manager,type);
+                //Changed to Action OnHit
+                em.Configure(enemySprite1, enemySprite2, eMaterial, enemyPoints,type);
                 em.OnHit = DidHitEnemy;
                 
                 go.transform.position = new Vector3(j * deltaX, currentY, 0);
@@ -213,10 +214,9 @@ public class GameManager : MonoBehaviour
         {
             transform.position=startPosition;
             currentY=_startY;
-            //TODO to change in a single call or a Action Callback
-            gameObject.GetComponent <EnemiesMover>().StepReset();
-            //TODO to change in a single call or a Action Callback
-            gameObject.GetComponent <EnemiesMover>().Mute();
+            //MoverResetting
+            EnemiesMover.StepReset();
+            EnemiesMover.Mute();
             Invoke("SpawnEnemies", 3);
             //SpawnEnemies();
         }

@@ -13,6 +13,11 @@ public class EnemiesMover : MonoBehaviour
     AudioSource _audioSource;
     private AudioClip fastInvader1;
     private AudioClip fastInvader2;
+
+    private float restartTimetoRemove = 0;
+
+    private float restatTimeDelta = 0.2f;
+    //new logic restart
     
     [SerializeField]
     float gameOverLowerY = -50;
@@ -34,9 +39,17 @@ public class EnemiesMover : MonoBehaviour
         muted = false;
     }
     
-    public void StepReset()
+    public void StepReset(float newStep=1)
     {
-        step = 1;
+        step = newStep;
+        if (restartTimetoRemove >= 0.5f)
+            restartTimetoRemove += restatTimeDelta;
+        else
+        {
+            restartTimetoRemove = 0.5f;
+        }
+        step -=restartTimetoRemove;
+        
     }
     private void FlipFlopSound()
     {

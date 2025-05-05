@@ -23,9 +23,9 @@ public class EnemyManager : MonoBehaviour {
     int hitPoints;
     private int type;
 
-    public void Configure(Sprite frame1Shape, Sprite frame2Shape, Material newMat, int points, GameManager manager,int eType) {
+    public void Configure(Sprite frame1Shape, Sprite frame2Shape, Material newMat, int points,int eType) {
         hitPoints = points;
-        gameManager = manager;
+        //gameManager = manager;
         fireDelay = Random.Range(5, 10);
         type = eType;
         
