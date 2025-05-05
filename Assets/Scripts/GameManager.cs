@@ -1,9 +1,13 @@
+using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    
+   
+    
     //Enemies setup
     [SerializeField]
     Material enemyMaterial;
@@ -136,6 +140,7 @@ public class GameManager : MonoBehaviour
 
             BarrierManager bm = go.GetComponent<BarrierManager>();
             bm.Configure(barrier, new Color(1, 1, 1), barrierMaterial);
+            
 
             go.transform.position = new Vector3(
                 barriersStart.x + i * barriersDelta.x,
@@ -185,7 +190,8 @@ public class GameManager : MonoBehaviour
                 
                 //TODO to change into a Action Callback
                 em.Configure(enemySprite1, enemySprite2, eMaterial, enemyPoints, manager,type);
-
+                em.OnHit = DidHitEnemy;
+                
                 go.transform.position = new Vector3(j * deltaX, currentY, 0);
                 go.transform.parent = transform;
             }

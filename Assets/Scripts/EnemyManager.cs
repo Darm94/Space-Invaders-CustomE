@@ -1,9 +1,13 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyManager : MonoBehaviour {
     [SerializeField]
     PrimitiveType voxel = PrimitiveType.Cube;
-
+    
+    public Action<int, int> OnHit;
+    
     bool animate = false;
 
     GameObject goShape1;
@@ -128,6 +132,7 @@ public class EnemyManager : MonoBehaviour {
     }
 
     public void WasHit() {
-        gameManager.DidHitEnemy(hitPoints,type);
+        //gameManager.DidHitEnemy(hitPoints,type);
+        OnHit?.Invoke(hitPoints, type);
     }
 }
