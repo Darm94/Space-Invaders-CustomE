@@ -19,10 +19,19 @@ public class DestroyOnHit : MonoBehaviour
                 Debug.Log(t.name);
                 t.gameObject.SetActive(true);
 
+                
+                
                 Rigidbody rb = t.gameObject.AddComponent<Rigidbody>();
                 if (rb)
                     rb.AddExplosionForce(20, t.transform.position, 100, 0, ForceMode.Impulse);
             }
+            
+            /*foreach (Transform t in transform) {
+                // Remove any type of collider
+                Collider col = t.GetComponent<Collider>();
+                if (col != null)
+                    Destroy(col);
+            }*/
             
             transform.parent.gameObject.GetComponent<EnemyManager>().WasHit();
             Destroy(transform.parent.gameObject, 3);

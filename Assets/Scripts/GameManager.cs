@@ -88,7 +88,10 @@ public class GameManager : MonoBehaviour
     //Player
     [SerializeField]
     GameObject player;
-
+    
+    //MisteryShip
+    [SerializeField]
+    GameObject misteryShip;
     //Score
     int score = 0;
 
@@ -195,6 +198,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver() {
         player.GetComponent<PlayerManager>().enabled = false;
+        misteryShip.GetComponent<MisteryShipManager>().enabled = false;
+        misteryShip.GetComponent<AudioSource>().Stop();
         gameOverCanvas.SetActive(true);
 
         int lastScore = PlayerPrefs.GetInt("score", 0);

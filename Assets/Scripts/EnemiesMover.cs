@@ -8,7 +8,7 @@ public class EnemiesMover : MonoBehaviour
     int direction = 1;
 
     [SerializeField]
-    float gameOverLowerY = -18;
+    float gameOverLowerY = -22;
 
     // Start is called before the first frame update
     void Start() {
@@ -26,7 +26,13 @@ public class EnemiesMover : MonoBehaviour
 
             step -= 0.1f;
 
-            InvokeRepeating("Move", step, step);
+            if (step >= 0.1f) {
+                InvokeRepeating("Move", step, step);
+            }
+            else
+            {
+                InvokeRepeating("Move", 0.1f, 0.1f);
+            }
         }
         else if (transform.position.x < -20 && direction == -1) {
             CancelInvoke();
@@ -39,11 +45,14 @@ public class EnemiesMover : MonoBehaviour
             if (step >= 0.1f) {
                 InvokeRepeating("Move", step, step);
             }
-            /*else {
+            else {
+                InvokeRepeating("Move", 0.1f, 0.1f);
+                /*
                 CancelInvoke();
                 GetComponent<GameManager>().GameOver();
                 enabled = false;
-            } */
+                */
+            } 
         }
 
         if (transform.position.y < gameOverLowerY) {

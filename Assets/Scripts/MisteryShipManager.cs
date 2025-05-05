@@ -29,6 +29,12 @@ public class MisteryShipManager : MonoBehaviour
     [SerializeField]
     int[] hitPoints = { 50, 100, 150, 200, 300 };
 
+    [SerializeField]
+    AudioSource dieAS;
+    
+    [SerializeField]
+    AudioSource lowSoundAS;
+    
     GameObject shipShape;
 
     float deltaX = 1;
@@ -51,6 +57,7 @@ public class MisteryShipManager : MonoBehaviour
         shipShape.transform.parent = transform;
 
         PlayerDestroyOnHit pdh = shipShape.AddComponent<PlayerDestroyOnHit>();
+        shipShape.AddComponent<MisteryShipVisibleAlerter>();
         pdh.Manager = manager;
 
         int startX = (int)ship.textureRect.xMin;
@@ -145,5 +152,29 @@ public class MisteryShipManager : MonoBehaviour
         }
 
         Invoke("Animate", Random.Range(5, 15));
+    }
+    public void Visible()
+    {
+        Debug.Log("VISIBLE");
+        if (lowSoundAS && !lowSoundAS.isPlaying)
+        {
+            lowSoundAS.loop = true;
+            lowSoundAS.Play();
+        }
+    }
+
+    public void Invisible()
+    {
+        Debug.Log("INVISIBLE");
+        if (lowSoundAS && lowSoundAS.isPlaying)
+        {
+            lowSoundAS.Stop();
+        }
+    }
+    
+    
+    private void OnDisable()
+    {
+        dieAS.Play();
     }
 }
