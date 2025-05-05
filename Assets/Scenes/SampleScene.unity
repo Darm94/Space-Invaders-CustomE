@@ -290,7 +290,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 91419702578af384aa8aeb07b5c71e28, type: 3}
   m_Resource: {fileID: 8300000, guid: 91419702578af384aa8aeb07b5c71e28, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.379
+  m_Volume: 0.336
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -700,7 +700,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 85b69eac4f33cdf4880fbaab8c304bfb, type: 3}
   m_Resource: {fileID: 8300000, guid: 85b69eac4f33cdf4880fbaab8c304bfb, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.938
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1696,6 +1696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae61e979fbd18684e843dd962e61fcec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  restatTimeDelta: 0.2
   gameOverLowerY: -80
 --- !u!114 &991524367
 MonoBehaviour:
@@ -1752,7 +1753,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.854
   m_Pitch: 1
   Loop: 0
   Mute: 0
