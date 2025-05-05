@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -208,6 +209,11 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("score", score);
             PlayerPrefs.Save();
         }
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     
 }
