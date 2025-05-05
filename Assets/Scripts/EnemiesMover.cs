@@ -6,7 +6,6 @@ public class EnemiesMover : MonoBehaviour
     float deltaX = 5;
     float step = 1;
     int direction = 1;
-
     [SerializeField]
     float gameOverLowerY = -50;
 
@@ -16,7 +15,7 @@ public class EnemiesMover : MonoBehaviour
     }
 
     void Move() {
-        transform.position += Vector3.right * deltaX * direction;
+        transform.position += deltaX * direction * Vector3.right;
 
         if (transform.position.x > 20 && direction == 1 || transform.position.x < -20 && direction == -1) {
             CancelInvoke();
@@ -24,35 +23,15 @@ public class EnemiesMover : MonoBehaviour
             direction *= -1;
             transform.position -= Vector3.up;
 
-            step -= 0.1f;
+            step -= 0.06f;
 
-            if (step >= 0.1f) {
+            if (step >= 0.08f) {
                 InvokeRepeating("Move", step, step);
             }
             else
             {
-                InvokeRepeating("Move", 0.1f, 0.1f);
+                InvokeRepeating("Move", 0.09f, 0.09f);
             }
-        }
-        else if (transform.position.x < -20 && direction == -1) {
-            CancelInvoke();
-
-            direction *= -1;
-            transform.position -= Vector3.up;
-
-            step -= 0.1f;
-
-            if (step >= 0.1f) {
-                InvokeRepeating("Move", step, step);
-            }
-            else {
-                InvokeRepeating("Move", 0.1f, 0.1f);
-                /*
-                CancelInvoke();
-                GetComponent<GameManager>().GameOver();
-                enabled = false;
-                */
-            } 
         }
         
         foreach (var childTransform in gameObject.GetComponentsInChildren<Transform>())
@@ -60,16 +39,12 @@ public class EnemiesMover : MonoBehaviour
             if (childTransform.position.y < gameOverLowerY)
             {
                 //GameOver
-
                 CancelInvoke();
-
                 Debug.Log("Game Over" + childTransform.position, childTransform.gameObject);
                 GetComponent<GameManager>().GameOver();
-
                 enabled = false;
             }
         }
-
         /*if (transform.position.y < gameOverLowerY) {
             //GameOver
             CancelInvoke();

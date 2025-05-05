@@ -143,17 +143,14 @@ public class GameManager : MonoBehaviour
                 barriersStart.z
             );
         }
-        
     }
 
     private void SpawnEnemies()
     {
-        
         activeEnemies = 0;
         _enemy1Counter = 0;
         _enemy2Counter = 0;
         _enemy3Counter = 0;
-        
         
         SpawnEnemyType(new Color(0, 1, 0), enemyMaterial, ref _enemy1Counter, enemy1Rows, enemy1Cols, enemy1, enemy1b, enemy1Points,
             this,1);
@@ -199,31 +196,6 @@ public class GameManager : MonoBehaviour
         if (type <= 0)
         {
             return;
-            /*
-            switch (type)
-            {
-                case 1:
-                    _enemy1Counter--;
-                    if (_enemy1Counter <= 0)
-                    {
-                        
-                    }
-                    break;
-                case 2:
-                    _enemy2Counter--;
-                    if (_enemy2Counter <= 0)
-                    {
-                        
-                    }
-                    break;
-                case 3:
-                    _enemy3Counter--;
-                    if (_enemy3Counter <= 0)
-                    {
-                        
-                    }
-                    break;
-            }*/
         }
         
         activeEnemies--;
@@ -233,7 +205,6 @@ public class GameManager : MonoBehaviour
             currentY=_startY;
             SpawnEnemies();
         }
-        
     }
 
     public void GameOver() {
