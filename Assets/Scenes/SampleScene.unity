@@ -290,13 +290,13 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 91419702578af384aa8aeb07b5c71e28, type: 3}
   m_Resource: {fileID: 8300000, guid: 91419702578af384aa8aeb07b5c71e28, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.379
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 85
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -620,7 +620,8 @@ Transform:
   m_LocalPosition: {x: 4, y: -13.1, z: -47.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1342252470}
   m_Father: {fileID: 367036856}
   m_LocalEulerAnglesHint: {x: -40, y: 0, z: 0}
 --- !u!114 &330585547
@@ -2047,7 +2048,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &1342252469
 Canvas:
   m_ObjectHideFlags: 0
@@ -2057,7 +2058,7 @@ Canvas:
   m_GameObject: {fileID: 1342252466}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 2
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -2078,20 +2079,20 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342252466}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.17163269, y: -0, z: -0, w: 0.985161}
+  m_LocalPosition: {x: 0, y: 0, z: 76}
+  m_LocalScale: {x: 0.18081914, y: 0.18081914, z: 0.13722183}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 20894016}
   - {fileID: 1440963496}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 330585546}
+  m_LocalEulerAnglesHint: {x: 19.766, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -1, y: 8}
+  m_SizeDelta: {x: 800, y: 450.45044}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1440963495
 GameObject:
   m_ObjectHideFlags: 0
@@ -2375,7 +2376,6 @@ SceneRoots:
   - {fileID: 367036856}
   - {fileID: 908348572}
   - {fileID: 791940372}
-  - {fileID: 1342252470}
   - {fileID: 1199441653}
   - {fileID: 841009659}
   - {fileID: 294575042}

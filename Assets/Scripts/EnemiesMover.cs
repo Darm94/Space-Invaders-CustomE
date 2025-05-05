@@ -16,7 +16,8 @@ public class EnemiesMover : MonoBehaviour
 
     private float restartTimetoRemove = 0;
 
-    private float restatTimeDelta = 0.2f;
+    [SerializeField]
+    private float restatTimeDelta = 0.3f;
     //new logic restart
     
     [SerializeField]
@@ -42,11 +43,11 @@ public class EnemiesMover : MonoBehaviour
     public void StepReset(float newStep=1)
     {
         step = newStep;
-        if (restartTimetoRemove >= 0.5f)
+        if (restartTimetoRemove <= 0.8f)
             restartTimetoRemove += restatTimeDelta;
         else
         {
-            restartTimetoRemove = 0.5f;
+            restartTimetoRemove = 0.8f;
         }
         step -=restartTimetoRemove;
         
@@ -80,12 +81,12 @@ public class EnemiesMover : MonoBehaviour
 
             step -= 0.06f;
 
-            if (step >= 0.08f) {
+            if (step >= 0.075f) {
                 InvokeRepeating("Move", step, step);
             }
             else
             {
-                InvokeRepeating("Move", 0.09f, 0.09f);
+                InvokeRepeating("Move", 0.08f, 0.08f);
             }
         }
         
